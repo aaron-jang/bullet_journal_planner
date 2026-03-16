@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "left": [
+    {"type":"text","x":52.5,"y":7.5,"text":"SUN","fontFamily":"sans-serif","fontSize":3},
+    {"type":"text","x":82.5,"y":7.5,"text":"MON","fontFamily":"sans-serif","fontSize":3},
+    {"type":"text","x":112.5,"y":7.5,"text":"TUE","fontFamily":"sans-serif","fontSize":3},
+
+    {"type":"line","x1":37.5,"y1":12.5,"x2":127.5,"y2":12.5},
+    {"type":"line","x1":37.5,"y1":47.5,"x2":127.5,"y2":47.5},
+    {"type":"line","x1":37.5,"y1":82.5,"x2":127.5,"y2":82.5},
+    {"type":"line","x1":37.5,"y1":117.5,"x2":127.5,"y2":117.5},
+    {"type":"line","x1":37.5,"y1":152.5,"x2":127.5,"y2":152.5},
+    {"type":"line","x1":37.5,"y1":187.5,"x2":127.5,"y2":187.5},
+
+    {"type":"line","x1":37.5,"y1":12.5,"x2":37.5,"y2":187.5},
+    {"type":"line","x1":67.5,"y1":12.5,"x2":67.5,"y2":187.5},
+    {"type":"line","x1":97.5,"y1":12.5,"x2":97.5,"y2":187.5},
+    {"type":"line","x1":127.5,"y1":12.5,"x2":127.5,"y2":187.5},
+
+    {"type":"text","x":62.5,"y":14.5,"text":"1","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":92.5,"y":14.5,"text":"2","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":122.5,"y":14.5,"text":"3","fontFamily":"sans-serif","fontSize":2.5},
+
+    {"type":"text","x":62.5,"y":49.5,"text":"8","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":92.5,"y":49.5,"text":"9","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":122.5,"y":49.5,"text":"10","fontFamily":"sans-serif","fontSize":2.5},
+
+    {"type":"text","x":62.5,"y":84.5,"text":"15","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":92.5,"y":84.5,"text":"16","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":122.5,"y":84.5,"text":"17","fontFamily":"sans-serif","fontSize":2.5},
+
+    {"type":"text","x":62.5,"y":119.5,"text":"22","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":92.5,"y":119.5,"text":"23","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":122.5,"y":119.5,"text":"24","fontFamily":"sans-serif","fontSize":2.5},
+
+    {"type":"text","x":62.5,"y":154.5,"text":"29","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":92.5,"y":154.5,"text":"30","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":122.5,"y":154.5,"text":"31","fontFamily":"sans-serif","fontSize":2.5}
+  ],
+  "right": [
+    {"type":"text","x":22.5,"y":7.5,"text":"WED","fontFamily":"sans-serif","fontSize":3},
+    {"type":"text","x":52.5,"y":7.5,"text":"THU","fontFamily":"sans-serif","fontSize":3},
+    {"type":"text","x":82.5,"y":7.5,"text":"FRI","fontFamily":"sans-serif","fontSize":3},
+    {"type":"text","x":112.5,"y":7.5,"text":"SAT","fontFamily":"sans-serif","fontSize":3},
+
+    {"type":"line","x1":7.5,"y1":12.5,"x2":127.5,"y2":12.5},
+    {"type":"line","x1":7.5,"y1":47.5,"x2":127.5,"y2":47.5},
+    {"type":"line","x1":7.5,"y1":82.5,"x2":127.5,"y2":82.5},
+    {"type":"line","x1":7.5,"y1":117.5,"x2":127.5,"y2":117.5},
+    {"type":"line","x1":7.5,"y1":152.5,"x2":127.5,"y2":152.5},
+    {"type":"line","x1":7.5,"y1":187.5,"x2":127.5,"y2":187.5},
+
+    {"type":"line","x1":7.5,"y1":12.5,"x2":7.5,"y2":187.5},
+    {"type":"line","x1":37.5,"y1":12.5,"x2":37.5,"y2":187.5},
+    {"type":"line","x1":67.5,"y1":12.5,"x2":67.5,"y2":187.5},
+    {"type":"line","x1":97.5,"y1":12.5,"x2":97.5,"y2":187.5},
+    {"type":"line","x1":127.5,"y1":12.5,"x2":127.5,"y2":187.5},
+
+    {"type":"text","x":32.5,"y":14.5,"text":"4","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":62.5,"y":14.5,"text":"5","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":92.5,"y":14.5,"text":"6","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":122.5,"y":14.5,"text":"7","fontFamily":"sans-serif","fontSize":2.5},
+
+    {"type":"text","x":32.5,"y":49.5,"text":"11","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":62.5,"y":49.5,"text":"12","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":92.5,"y":49.5,"text":"13","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":122.5,"y":49.5,"text":"14","fontFamily":"sans-serif","fontSize":2.5},
+
+    {"type":"text","x":32.5,"y":84.5,"text":"18","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":62.5,"y":84.5,"text":"19","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":92.5,"y":84.5,"text":"20","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":122.5,"y":84.5,"text":"21","fontFamily":"sans-serif","fontSize":2.5},
+
+    {"type":"text","x":32.5,"y":119.5,"text":"25","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":62.5,"y":119.5,"text":"26","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":92.5,"y":119.5,"text":"27","fontFamily":"sans-serif","fontSize":2.5},
+    {"type":"text","x":122.5,"y":119.5,"text":"28","fontFamily":"sans-serif","fontSize":2.5}
+  ]
+}
