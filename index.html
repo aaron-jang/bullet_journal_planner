@@ -370,6 +370,86 @@
       pointer-events: none;
     }
 
+    /* ===== Responsive: Tablet ===== */
+    @media (max-width: 1024px) {
+      #workspace {
+        padding: 64px 12px 12px;
+        gap: 4px;
+      }
+      .page {
+        transform-origin: top center;
+        transform: scale(0.7);
+        margin: -15% 0;
+      }
+    }
+
+    /* ===== Responsive: Mobile ===== */
+    @media (max-width: 768px) {
+      #toolbar {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        border-radius: 16px 16px 0 0;
+        max-width: 100%;
+        padding: 8px 10px;
+        gap: 4px;
+        justify-content: center;
+        max-height: 50vh;
+        overflow-y: auto;
+      }
+      #toolbar .separator { height: 20px; }
+      #toolbar .secondary-group { display: none; }
+      #toolbar.expanded .secondary-group { display: flex; }
+
+      .toolbar-toggle {
+        display: flex !important;
+      }
+
+      .tool-btn { width: 38px; height: 38px; }
+      .action-btn { height: 34px; padding: 0 10px; font-size: 11px; }
+      .tool-group label { display: none; }
+
+      #workspace {
+        flex-direction: column;
+        padding: 12px 12px 80px;
+        gap: 12px;
+        align-items: center;
+      }
+      .page {
+        transform-origin: top center;
+        transform: scale(var(--mobile-scale, 0.5));
+        margin-bottom: calc(-1 * var(--mobile-margin, 40%));
+      }
+      .page-label { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        --mobile-scale: 0.38;
+        --mobile-margin: 50%;
+      }
+      #font-select, #text-rotation { max-width: 70px; font-size: 10px; }
+      #font-size, #grid-cols, #grid-rows { width: 38px; font-size: 10px; }
+    }
+
+    .toolbar-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 10px;
+      background: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .toolbar-toggle:hover { background: rgba(0,0,0,0.05); color: var(--text); }
+    .toolbar-toggle.active { color: var(--accent); }
+
     @page {
       size: 270mm 195mm;
       margin: 0;
@@ -468,32 +548,28 @@
     <div class="tool-group">
       <button id="btn-save" class="action-btn" title="Save (Ctrl+S)">
         <svg width="18" height="18" viewBox="0 0 18 18"><path d="M3,2 H13 L16,5 V15 A1,1 0 0,1 15,16 H3 A1,1 0 0,1 2,15 V3 A1,1 0 0,1 3,2 Z M5,2 V7 H12 V2 M5,16 V10 H13 V16" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
-        Save
       </button>
       <button id="btn-load" class="action-btn" title="Load (Ctrl+O)">
         <svg width="18" height="18" viewBox="0 0 18 18"><path d="M2,7 H7 L9,5 H15 A1,1 0 0,1 16,6 V14 A1,1 0 0,1 15,15 H3 A1,1 0 0,1 2,14 Z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
-        Load
+      </button>
+      <button id="btn-print" class="action-btn" title="Print">
+        <svg width="18" height="18" viewBox="0 0 18 18"><rect x="3" y="7" width="12" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5,7 V2 H13 V7 M5,11 H13 V16 H5 Z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
       </button>
       <input type="file" id="file-input" accept=".json" style="display:none">
     </div>
 
-    <div class="separator"></div>
+    <button id="toolbar-toggle" class="toolbar-toggle" title="More options">
+      <svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="3" r="1.5" fill="currentColor"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/><circle cx="9" cy="15" r="1.5" fill="currentColor"/></svg>
+    </button>
 
-    <div class="tool-group" id="grid-options">
+    <div class="separator secondary-group"></div>
+
+    <div class="tool-group secondary-group" id="grid-options">
       <label for="grid-cols">Grid</label>
       <input type="number" id="grid-cols" value="25" min="5" max="50" step="1" title="Columns">
       <span class="unit">×</span>
       <input type="number" id="grid-rows" value="37" min="5" max="60" step="1" title="Rows">
       <button id="btn-apply-grid" class="action-btn" title="Apply grid size">Apply</button>
-    </div>
-
-    <div class="separator"></div>
-
-    <div class="tool-group">
-      <button id="btn-print" class="action-btn" title="Print">
-        <svg width="18" height="18" viewBox="0 0 18 18"><rect x="3" y="7" width="12" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5,7 V2 H13 V7 M5,11 H13 V16 H5 Z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
-        Print
-      </button>
     </div>
   </div>
 
@@ -1220,6 +1296,13 @@
         newCols = Math.max(5, Math.min(50, newCols));
         newRows = Math.max(5, Math.min(60, newRows));
         rebuildGrid(newCols, newRows);
+      });
+
+      // Mobile toolbar toggle
+      document.getElementById('toolbar-toggle').addEventListener('click', function() {
+        var tb = document.getElementById('toolbar');
+        tb.classList.toggle('expanded');
+        this.classList.toggle('active');
       });
 
       document.getElementById('btn-print').addEventListener('click', function() { window.print(); });
