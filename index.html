@@ -345,14 +345,21 @@
     }
     .history-item:hover { background: rgba(0,0,0,0.04); }
 
-    .history-item-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      display: flex; align-items: center; justify-content: center;
+    .history-item-thumb {
+      width: 64px; height: 44px;
+      border-radius: 6px;
+      background: #f8f7f5;
+      border: 1px solid rgba(0,0,0,0.06);
       flex-shrink: 0;
-      font-size: 14px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .history-item-thumb svg {
+      width: 100%;
+      height: 100%;
+      padding: 3px;
     }
 
     .history-item-info {
@@ -398,23 +405,35 @@
       padding: 12px 16px;
       border-top: 1px solid rgba(0,0,0,0.06);
     }
-    .history-save-btn {
-      width: 100%;
-      padding: 8px;
-      border: 1.5px dashed rgba(0,0,0,0.15);
+    .history-save-row {
+      display: flex;
+      gap: 6px;
+    }
+    .history-name-input {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1.5px solid rgba(0,0,0,0.1);
       border-radius: 10px;
-      background: none;
-      cursor: pointer;
-      color: var(--text-muted);
+      background: rgba(255,255,255,0.6);
       font-size: 12px;
-      font-weight: 500;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .history-name-input:focus { border-color: var(--accent); }
+    .history-name-input::placeholder { color: var(--text-muted); }
+    .history-save-confirm {
+      width: 36px; height: 36px;
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
       transition: all 0.15s;
     }
-    .history-save-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-soft);
-    }
+    .history-save-confirm:hover { opacity: 0.85; }
 
     /* ===== Workspace ===== */
     #workspace {
@@ -732,7 +751,12 @@
     </div>
     <div class="history-list" id="history-list"></div>
     <div class="history-actions">
-      <button class="history-save-btn" id="history-save" data-i18n="saveToHistory">+ Save current state</button>
+      <div class="history-save-row" id="history-save-row">
+        <input type="text" id="history-name-input" class="history-name-input" placeholder="Template name" data-i18n-placeholder="templateName">
+        <button class="history-save-confirm" id="history-save-confirm">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M3,8 L7,12 L13,4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -771,7 +795,7 @@
         undo: '실행 취소 (Ctrl+Z)', redo: '다시 실행 (Ctrl+Shift+Z)',
         save: '저장 (Ctrl+S)', load: '불러오기 (Ctrl+O)', print: '인쇄',
         grid: '그리드', columns: '가로', rows: '세로', apply: '적용', applyGrid: '그리드 크기 적용',
-        moreOptions: '더보기', history: '히스토리', saveToHistory: '+ 현재 상태 저장',
+        moreOptions: '더보기', history: '히스토리', templateName: '템플릿 이름',
         historyEmpty: '저장된 히스토리가 없습니다', elemCount: '개 요소',
         pageTitle: 'Bullet Journal 템플릿 에디터 - 무료 온라인 불렛저널',
       },
@@ -781,7 +805,7 @@
         undo: 'Undo (Ctrl+Z)', redo: 'Redo (Ctrl+Shift+Z)',
         save: 'Save (Ctrl+S)', load: 'Load (Ctrl+O)', print: 'Print',
         grid: 'Grid', columns: 'Columns', rows: 'Rows', apply: 'Apply', applyGrid: 'Apply grid size',
-        moreOptions: 'More options', history: 'History', saveToHistory: '+ Save current state',
+        moreOptions: 'More options', history: 'History', templateName: 'Template name',
         historyEmpty: 'No saved history', elemCount: ' elements',
         pageTitle: 'Bullet Journal Template Editor - Free Online',
       },
@@ -791,7 +815,7 @@
         undo: '元に戻す (Ctrl+Z)', redo: 'やり直し (Ctrl+Shift+Z)',
         save: '保存 (Ctrl+S)', load: '読み込み (Ctrl+O)', print: '印刷',
         grid: 'グリッド', columns: '横', rows: '縦', apply: '適用', applyGrid: 'グリッドサイズ適用',
-        moreOptions: 'その他', history: '履歴', saveToHistory: '+ 現在の状態を保存',
+        moreOptions: 'その他', history: '履歴', templateName: 'テンプレート名',
         historyEmpty: '保存された履歴はありません', elemCount: '個の要素',
         pageTitle: 'バレットジャーナル テンプレートエディター - 無料オンライン',
       },
@@ -801,7 +825,7 @@
         undo: '撤销 (Ctrl+Z)', redo: '重做 (Ctrl+Shift+Z)',
         save: '保存 (Ctrl+S)', load: '打开 (Ctrl+O)', print: '打印',
         grid: '网格', columns: '列', rows: '行', apply: '应用', applyGrid: '应用网格大小',
-        moreOptions: '更多选项', history: '历史记录', saveToHistory: '+ 保存当前状态',
+        moreOptions: '更多选项', history: '历史记录', templateName: '模板名称',
         historyEmpty: '没有保存的记录', elemCount: '个元素',
         pageTitle: '子弹笔记模板编辑器 - 免费在线工具',
       },
@@ -811,7 +835,7 @@
         undo: '復原 (Ctrl+Z)', redo: '重做 (Ctrl+Shift+Z)',
         save: '儲存 (Ctrl+S)', load: '開啟 (Ctrl+O)', print: '列印',
         grid: '網格', columns: '欄', rows: '列', apply: '套用', applyGrid: '套用網格大小',
-        moreOptions: '更多選項', history: '歷史紀錄', saveToHistory: '+ 儲存目前狀態',
+        moreOptions: '更多選項', history: '歷史紀錄', templateName: '範本名稱',
         historyEmpty: '沒有儲存的紀錄', elemCount: '個元素',
         pageTitle: '子彈筆記範本編輯器 - 免費線上工具',
       },
@@ -838,6 +862,9 @@
       document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
         el.title = t[el.dataset.i18nTitle] || el.title;
       });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+        el.placeholder = t[el.dataset.i18nPlaceholder] || el.placeholder;
+      });
       document.title = t.pageTitle;
       var htmlEl = document.documentElement;
       if (lang === 'ja') htmlEl.lang = 'ja';
@@ -861,7 +888,43 @@
       localStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(0, MAX_HISTORY)));
     }
 
-    function saveToHistory() {
+    function generateThumbnail(jsonStr) {
+      var data = JSON.parse(jsonStr);
+      var cols = data.cols || 25, rows = data.rows || 37;
+      var vbW = 7.5 * 2 + (cols - 1) * 5;
+      var vbH = 7.5 * 2 + (rows - 1) * 5;
+      var totalW = vbW * 2 + 4;
+
+      function renderElements(elements) {
+        var svg = '';
+        (elements || []).forEach(function(el) {
+          if (el.type === 'line') {
+            svg += '<line x1="'+el.x1+'" y1="'+el.y1+'" x2="'+el.x2+'" y2="'+el.y2+'" stroke="#555" stroke-width="0.8"/>';
+          } else if (el.type === 'text') {
+            var r = el.rotation ? ' transform="rotate('+el.rotation+' '+el.x+' '+el.y+')"' : '';
+            svg += '<text x="'+el.x+'" y="'+el.y+'" font-size="'+(el.fontSize||3)+'" fill="#555" dominant-baseline="hanging" font-family="sans-serif"'+r+'>'+el.text+'</text>';
+          }
+        });
+        return svg;
+      }
+
+      // Dot hints (just corners)
+      var dots = '';
+      for (var r = 0; r < rows; r += Math.max(1, Math.floor(rows/8))) {
+        for (var c = 0; c < cols; c += Math.max(1, Math.floor(cols/6))) {
+          dots += '<circle cx="'+(7.5+c*5)+'" cy="'+(7.5+r*5)+'" r="0.5" fill="#ddd"/>';
+        }
+      }
+
+      return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+totalW+' '+vbH+'">' +
+        '<rect x="0" y="0" width="'+vbW+'" height="'+vbH+'" rx="3" fill="#fff" stroke="#ddd" stroke-width="0.5"/>' +
+        '<rect x="'+(vbW+4)+'" y="0" width="'+vbW+'" height="'+vbH+'" rx="3" fill="#fff" stroke="#ddd" stroke-width="0.5"/>' +
+        '<g>' + dots + renderElements(data.left) + '</g>' +
+        '<g transform="translate('+(vbW+4)+',0)">' + dots + renderElements(data.right) + '</g>' +
+        '</svg>';
+    }
+
+    function saveToHistory(customName) {
       var json = serializeDrawing();
       var data = JSON.parse(json);
       var leftCount = (data.left || []).length;
@@ -870,13 +933,19 @@
       if (total === 0) return;
 
       var now = new Date();
+      var timestamp = now.toLocaleDateString(currentLang, { month: 'short', day: 'numeric' }) + ' ' +
+        now.toLocaleTimeString(currentLang, { hour: '2-digit', minute: '2-digit' });
+      var name = customName || timestamp;
+
       var entry = {
         id: Date.now(),
-        name: now.toLocaleDateString(currentLang, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        name: name,
+        timestamp: timestamp,
         count: total,
         cols: COLS,
         rows: ROWS,
         data: json,
+        thumb: generateThumbnail(json),
       };
       var list = getHistoryList();
       list.unshift(entry);
@@ -912,11 +981,18 @@
       list.forEach(function(entry) {
         var item = document.createElement('div');
         item.className = 'history-item';
+
+        var thumb = entry.thumb || '';
+        // Regenerate thumb if missing (old entries)
+        if (!thumb && entry.data) {
+          try { thumb = generateThumbnail(entry.data); } catch(e) {}
+        }
+
         item.innerHTML =
-          '<div class="history-item-icon"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="5" cy="5" r="0.8" fill="currentColor"/><circle cx="8" cy="5" r="0.8" fill="currentColor"/><circle cx="5" cy="8" r="0.8" fill="currentColor"/></svg></div>' +
+          '<div class="history-item-thumb">' + thumb + '</div>' +
           '<div class="history-item-info">' +
             '<div class="history-item-name">' + entry.name + '</div>' +
-            '<div class="history-item-meta">' + (entry.cols || 25) + '×' + (entry.rows || 37) + ' · ' + entry.count + (t.elemCount) + '</div>' +
+            '<div class="history-item-meta">' + (entry.timestamp || '') + ' · ' + (entry.cols || 25) + '×' + (entry.rows || 37) + ' · ' + entry.count + (t.elemCount) + '</div>' +
           '</div>' +
           '<button class="history-item-delete" data-id="' + entry.id + '" title="Delete"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2,2 L10,10 M10,2 L2,10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>';
 
@@ -1673,7 +1749,16 @@
       document.getElementById('history-close').addEventListener('click', function() {
         document.getElementById('history-panel').classList.remove('open');
       });
-      document.getElementById('history-save').addEventListener('click', saveToHistory);
+      var historyNameInput = document.getElementById('history-name-input');
+      function doSaveHistory() {
+        var name = historyNameInput.value.trim();
+        saveToHistory(name || null);
+        historyNameInput.value = '';
+      }
+      document.getElementById('history-save-confirm').addEventListener('click', doSaveHistory);
+      historyNameInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); doSaveHistory(); }
+      });
 
       // Restore grid size from localStorage
       var savedGrid = loadGridSize();
