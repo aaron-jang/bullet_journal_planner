@@ -249,7 +249,7 @@
     .action-btn:disabled { opacity: 0.3; cursor: default; }
     .action-btn:disabled:hover { background: none; }
 
-    #font-select, #text-rotation {
+    #font-select, #text-rotation, #lang-select {
       padding: 4px 8px;
       border: 1px solid rgba(0,0,0,0.1);
       border-radius: 8px;
@@ -430,7 +430,7 @@
         --mobile-scale: 0.38;
         --mobile-margin: 50%;
       }
-      #font-select, #text-rotation { max-width: 70px; font-size: 10px; }
+      #font-select, #text-rotation, #lang-select { max-width: 70px; font-size: 10px; }
       #font-size, #grid-cols, #grid-rows { width: 38px; font-size: 10px; }
     }
 
@@ -500,13 +500,13 @@
 <body>
   <div id="toolbar">
     <div class="tool-group">
-      <button id="tool-line" class="tool-btn active" data-tool="line" title="Line Tool (L)">
+      <button id="tool-line" class="tool-btn active" data-tool="line" data-i18n-title="lineTool">
         <svg width="18" height="18" viewBox="0 0 18 18"><line x1="2" y1="16" x2="16" y2="2" stroke="currentColor" stroke-width="2"/></svg>
       </button>
-      <button id="tool-text" class="tool-btn" data-tool="text" title="Text Tool (T)">
+      <button id="tool-text" class="tool-btn" data-tool="text" data-i18n-title="textTool">
         <svg width="18" height="18" viewBox="0 0 18 18"><text x="3" y="14" font-size="14" fill="currentColor" font-weight="bold">T</text></svg>
       </button>
-      <button id="tool-select" class="tool-btn" data-tool="select" title="Select Tool (V)">
+      <button id="tool-select" class="tool-btn" data-tool="select" data-i18n-title="selectTool">
         <svg width="18" height="18" viewBox="0 0 18 18"><polygon points="3,2 3,15 7,11 12,14" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
       </button>
     </div>
@@ -514,17 +514,17 @@
     <div class="separator"></div>
 
     <div class="tool-group" id="text-options">
-      <label for="font-select">Font</label>
+      <label for="font-select" data-i18n="font">Font</label>
       <select id="font-select">
         <option value="Pretendard">Pretendard</option>
         <option value="monospace">Monospace</option>
         <option value="serif">Serif</option>
         <option value="sans-serif">Sans-serif</option>
       </select>
-      <label for="font-size">Size</label>
+      <label for="font-size" data-i18n="size">Size</label>
       <input type="number" id="font-size" value="3.5" min="1" max="20" step="0.5">
       <span class="unit">mm</span>
-      <label for="text-rotation">Rotation</label>
+      <label for="text-rotation" data-i18n="rotation">Rotation</label>
       <select id="text-rotation">
         <option value="0">0°</option>
         <option value="90">90°</option>
@@ -535,10 +535,10 @@
     <div class="separator"></div>
 
     <div class="tool-group">
-      <button id="btn-undo" class="action-btn" title="Undo (Ctrl+Z)" disabled>
+      <button id="btn-undo" class="action-btn" data-i18n-title="undo" disabled>
         <svg width="18" height="18" viewBox="0 0 18 18"><path d="M5,9 L9,5 M5,9 L9,13 M5,9 L14,9 A4,4 0 0,1 14,15 L10,15" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
       </button>
-      <button id="btn-redo" class="action-btn" title="Redo (Ctrl+Shift+Z)" disabled>
+      <button id="btn-redo" class="action-btn" data-i18n-title="redo" disabled>
         <svg width="18" height="18" viewBox="0 0 18 18"><path d="M13,9 L9,5 M13,9 L9,13 M13,9 L4,9 A4,4 0 0,0 4,15 L8,15" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
       </button>
     </div>
@@ -546,30 +546,42 @@
     <div class="separator"></div>
 
     <div class="tool-group">
-      <button id="btn-save" class="action-btn" title="Save (Ctrl+S)">
+      <button id="btn-save" class="action-btn" data-i18n-title="save">
         <svg width="18" height="18" viewBox="0 0 18 18"><path d="M3,2 H13 L16,5 V15 A1,1 0 0,1 15,16 H3 A1,1 0 0,1 2,15 V3 A1,1 0 0,1 3,2 Z M5,2 V7 H12 V2 M5,16 V10 H13 V16" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
       </button>
-      <button id="btn-load" class="action-btn" title="Load (Ctrl+O)">
+      <button id="btn-load" class="action-btn" data-i18n-title="load">
         <svg width="18" height="18" viewBox="0 0 18 18"><path d="M2,7 H7 L9,5 H15 A1,1 0 0,1 16,6 V14 A1,1 0 0,1 15,15 H3 A1,1 0 0,1 2,14 Z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
       </button>
-      <button id="btn-print" class="action-btn" title="Print">
+      <button id="btn-print" class="action-btn" data-i18n-title="print">
         <svg width="18" height="18" viewBox="0 0 18 18"><rect x="3" y="7" width="12" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5,7 V2 H13 V7 M5,11 H13 V16 H5 Z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
       </button>
       <input type="file" id="file-input" accept=".json" style="display:none">
     </div>
 
-    <button id="toolbar-toggle" class="toolbar-toggle" title="More options">
+    <button id="toolbar-toggle" class="toolbar-toggle" data-i18n-title="moreOptions">
       <svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="3" r="1.5" fill="currentColor"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/><circle cx="9" cy="15" r="1.5" fill="currentColor"/></svg>
     </button>
 
     <div class="separator secondary-group"></div>
 
     <div class="tool-group secondary-group" id="grid-options">
-      <label for="grid-cols">Grid</label>
-      <input type="number" id="grid-cols" value="25" min="5" max="50" step="1" title="Columns">
+      <label for="grid-cols" data-i18n="grid">Grid</label>
+      <input type="number" id="grid-cols" value="25" min="5" max="50" step="1" data-i18n-title="columns">
       <span class="unit">×</span>
-      <input type="number" id="grid-rows" value="37" min="5" max="60" step="1" title="Rows">
-      <button id="btn-apply-grid" class="action-btn" title="Apply grid size">Apply</button>
+      <input type="number" id="grid-rows" value="37" min="5" max="60" step="1" data-i18n-title="rows">
+      <button id="btn-apply-grid" class="action-btn" data-i18n="apply" data-i18n-title="applyGrid">Apply</button>
+    </div>
+
+    <div class="separator secondary-group"></div>
+
+    <div class="tool-group secondary-group">
+      <select id="lang-select" title="Language">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="zh-CN">简体中文</option>
+        <option value="zh-TW">繁體中文</option>
+      </select>
     </div>
   </div>
 
@@ -599,6 +611,85 @@
   <script>
   (function() {
     'use strict';
+
+    // ========== i18n ==========
+    var I18N = {
+      ko: {
+        lineTool: '선 도구 (L)', textTool: '텍스트 도구 (T)', selectTool: '선택 도구 (V)',
+        font: '폰트', size: '크기', rotation: '회전',
+        undo: '실행 취소 (Ctrl+Z)', redo: '다시 실행 (Ctrl+Shift+Z)',
+        save: '저장 (Ctrl+S)', load: '불러오기 (Ctrl+O)', print: '인쇄',
+        grid: '그리드', columns: '가로', rows: '세로', apply: '적용', applyGrid: '그리드 크기 적용',
+        moreOptions: '더보기',
+        pageTitle: 'Bullet Journal 템플릿 에디터 - 무료 온라인 불렛저널',
+      },
+      en: {
+        lineTool: 'Line Tool (L)', textTool: 'Text Tool (T)', selectTool: 'Select Tool (V)',
+        font: 'Font', size: 'Size', rotation: 'Rotation',
+        undo: 'Undo (Ctrl+Z)', redo: 'Redo (Ctrl+Shift+Z)',
+        save: 'Save (Ctrl+S)', load: 'Load (Ctrl+O)', print: 'Print',
+        grid: 'Grid', columns: 'Columns', rows: 'Rows', apply: 'Apply', applyGrid: 'Apply grid size',
+        moreOptions: 'More options',
+        pageTitle: 'Bullet Journal Template Editor - Free Online',
+      },
+      ja: {
+        lineTool: '線ツール (L)', textTool: 'テキストツール (T)', selectTool: '選択ツール (V)',
+        font: 'フォント', size: 'サイズ', rotation: '回転',
+        undo: '元に戻す (Ctrl+Z)', redo: 'やり直し (Ctrl+Shift+Z)',
+        save: '保存 (Ctrl+S)', load: '読み込み (Ctrl+O)', print: '印刷',
+        grid: 'グリッド', columns: '横', rows: '縦', apply: '適用', applyGrid: 'グリッドサイズ適用',
+        moreOptions: 'その他',
+        pageTitle: 'バレットジャーナル テンプレートエディター - 無料オンライン',
+      },
+      'zh-CN': {
+        lineTool: '线条工具 (L)', textTool: '文本工具 (T)', selectTool: '选择工具 (V)',
+        font: '字体', size: '大小', rotation: '旋转',
+        undo: '撤销 (Ctrl+Z)', redo: '重做 (Ctrl+Shift+Z)',
+        save: '保存 (Ctrl+S)', load: '打开 (Ctrl+O)', print: '打印',
+        grid: '网格', columns: '列', rows: '行', apply: '应用', applyGrid: '应用网格大小',
+        moreOptions: '更多选项',
+        pageTitle: '子弹笔记模板编辑器 - 免费在线工具',
+      },
+      'zh-TW': {
+        lineTool: '線條工具 (L)', textTool: '文字工具 (T)', selectTool: '選擇工具 (V)',
+        font: '字型', size: '大小', rotation: '旋轉',
+        undo: '復原 (Ctrl+Z)', redo: '重做 (Ctrl+Shift+Z)',
+        save: '儲存 (Ctrl+S)', load: '開啟 (Ctrl+O)', print: '列印',
+        grid: '網格', columns: '欄', rows: '列', apply: '套用', applyGrid: '套用網格大小',
+        moreOptions: '更多選項',
+        pageTitle: '子彈筆記範本編輯器 - 免費線上工具',
+      },
+    };
+
+    var currentLang = 'ko';
+
+    function detectLang() {
+      var nav = (navigator.language || '').toLowerCase();
+      if (nav.startsWith('zh-tw') || nav.startsWith('zh-hant')) return 'zh-TW';
+      if (nav.startsWith('zh')) return 'zh-CN';
+      if (nav.startsWith('ja')) return 'ja';
+      if (nav.startsWith('en')) return 'en';
+      if (nav.startsWith('ko')) return 'ko';
+      return 'en';
+    }
+
+    function applyLang(lang) {
+      currentLang = lang;
+      var t = I18N[lang] || I18N.en;
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        el.textContent = t[el.dataset.i18n] || el.textContent;
+      });
+      document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
+        el.title = t[el.dataset.i18nTitle] || el.title;
+      });
+      document.title = t.pageTitle;
+      var htmlEl = document.documentElement;
+      if (lang === 'ja') htmlEl.lang = 'ja';
+      else if (lang.startsWith('zh')) htmlEl.lang = lang;
+      else if (lang === 'en') htmlEl.lang = 'en';
+      else htmlEl.lang = 'ko';
+      localStorage.setItem('bujo-lang', lang);
+    }
 
     // ========== Grid ==========
     var COLS = 25, ROWS = 37, SPACING = 5, PADDING = 7.5, DOT_RADIUS = 0.3;
@@ -1301,6 +1392,14 @@
         var tb = document.getElementById('toolbar');
         tb.classList.toggle('expanded');
         this.classList.toggle('active');
+      });
+
+      // i18n
+      var savedLang = localStorage.getItem('bujo-lang') || detectLang();
+      document.getElementById('lang-select').value = savedLang;
+      applyLang(savedLang);
+      document.getElementById('lang-select').addEventListener('change', function() {
+        applyLang(this.value);
       });
 
       document.getElementById('btn-print').addEventListener('click', function() { window.print(); });
