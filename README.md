@@ -59,7 +59,3 @@
 - SVG (mm 단위 정밀 렌더링)
 - Glassmorphism UI (backdrop-filter)
 - 반응형 디자인 (CSS media queries)
-
-## License
-
-MIT
