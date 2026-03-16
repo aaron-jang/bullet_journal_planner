@@ -199,7 +199,7 @@
     .action-btn:disabled:hover { background: none; }
 
     #font-select { padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; background: #fff; }
-    #font-size { width: 50px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; text-align: center; }
+    #font-size, #grid-cols, #grid-rows { width: 50px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; text-align: center; }
     .unit { font-size: 11px; color: #999; }
 
     #workspace {
@@ -384,6 +384,16 @@
 
     <div class="separator"></div>
 
+    <div class="tool-group" id="grid-options">
+      <label for="grid-cols">Grid</label>
+      <input type="number" id="grid-cols" value="25" min="5" max="50" step="1" title="Columns">
+      <span class="unit">×</span>
+      <input type="number" id="grid-rows" value="37" min="5" max="60" step="1" title="Rows">
+      <button id="btn-apply-grid" class="action-btn" title="Apply grid size">Apply</button>
+    </div>
+
+    <div class="separator"></div>
+
     <div class="tool-group">
       <button id="btn-print" class="action-btn" title="Print">
         <svg width="18" height="18" viewBox="0 0 18 18"><rect x="3" y="7" width="12" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5,7 V2 H13 V7 M5,11 H13 V16 H5 Z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
@@ -526,6 +536,35 @@
         svg.addEventListener('mousedown', function() { setActivePage(svg); });
       });
       setActivePage(svgEls[0]);
+    }
+
+    function rebuildGrid(newCols, newRows) {
+      COLS = newCols;
+      ROWS = newRows;
+      var vbW = PADDING * 2 + (COLS - 1) * SPACING;
+      var vbH = PADDING * 2 + (ROWS - 1) * SPACING;
+      pages.forEach(function(p) {
+        // Update SVG viewBox and size
+        p.svg.setAttribute('viewBox', '0 0 ' + vbW + ' ' + vbH);
+        p.svg.setAttribute('width', vbW + 'mm');
+        p.svg.setAttribute('height', vbH + 'mm');
+        // Rebuild grid dots
+        p.svg.querySelector('.grid-layer').innerHTML = '';
+        initGrid(p.svg);
+      });
+      // Update print @page size
+      var styleId = 'dynamic-print-style';
+      var existing = document.getElementById(styleId);
+      if (existing) existing.remove();
+      var style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = '@page { size: ' + (vbW * 2) + 'mm ' + vbH + 'mm; margin: 0; }';
+      document.head.appendChild(style);
+      // Re-activate current tool
+      if (currentTool) {
+        tools[currentTool].deactivate();
+        tools[currentTool].activate();
+      }
     }
 
     function setActivePage(svgEl) {
@@ -945,6 +984,8 @@
     function serializeDrawing() {
       return JSON.stringify({
         version: 2,
+        cols: COLS,
+        rows: ROWS,
         left: serializePage(pages[0]),
         right: serializePage(pages[1]),
       }, null, 2);
@@ -990,6 +1031,13 @@
     function loadDrawing(json) {
       var data = JSON.parse(json);
       if (!data) return;
+
+      // Restore grid size if saved
+      if (data.cols && data.rows) {
+        document.getElementById('grid-cols').value = data.cols;
+        document.getElementById('grid-rows').value = data.rows;
+        rebuildGrid(data.cols, data.rows);
+      }
 
       // Support v1 (single page) and v2 (two pages)
       if (data.version === 1 && data.elements) {
@@ -1069,6 +1117,14 @@
       document.addEventListener('keydown', function(e) {
         if ((e.key === 's' || e.key === 'S') && (e.ctrlKey || e.metaKey)) { e.preventDefault(); saveToFile(); }
         if ((e.key === 'o' || e.key === 'O') && (e.ctrlKey || e.metaKey)) { e.preventDefault(); loadFromFile(); }
+      });
+
+      document.getElementById('btn-apply-grid').addEventListener('click', function() {
+        var newCols = parseInt(document.getElementById('grid-cols').value) || 25;
+        var newRows = parseInt(document.getElementById('grid-rows').value) || 37;
+        newCols = Math.max(5, Math.min(50, newCols));
+        newRows = Math.max(5, Math.min(60, newRows));
+        rebuildGrid(newCols, newRows);
       });
 
       document.getElementById('btn-print').addEventListener('click', function() { window.print(); });
