@@ -623,17 +623,13 @@
       #workspace {
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
         padding: 0 !important;
         overflow: visible;
         gap: 0;
-        width: 270mm;
-        height: 195mm;
       }
       .page-wrapper {
-        width: 135mm;
-        height: 195mm;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -643,11 +639,12 @@
         box-shadow: none !important;
         border: 1px solid #ccc !important;
         border-radius: 8px !important;
-        width: 135mm;
-        height: 195mm;
+        transform: none !important;
+        margin: 0 !important;
       }
       .snap-indicator { display: none; }
       .line-label { display: none; }
+      #history-panel { display: none !important; }
     }
   </style>
 </head>
@@ -1157,7 +1154,13 @@
       if (existing) existing.remove();
       var style = document.createElement('style');
       style.id = styleId;
-      style.textContent = '@page { size: ' + (vbW * 2) + 'mm ' + vbH + 'mm; margin: 0; }';
+      style.textContent =
+        '@page { size: ' + (vbW * 2 + 4) + 'mm ' + vbH + 'mm; margin: 0; } ' +
+        '@media print { ' +
+          '#workspace { width: ' + (vbW * 2 + 4) + 'mm; height: ' + vbH + 'mm; } ' +
+          '.page-wrapper { width: ' + vbW + 'mm; height: ' + vbH + 'mm; } ' +
+          '.page { width: ' + vbW + 'mm !important; height: ' + vbH + 'mm !important; } ' +
+        '}';
       document.head.appendChild(style);
       // Re-activate current tool
       if (currentTool) {
@@ -1760,10 +1763,12 @@
         if (e.key === 'Enter') { e.preventDefault(); doSaveHistory(); }
       });
 
-      // Restore grid size from localStorage
+      // Restore grid size from localStorage (or apply default print styles)
       var savedGrid = loadGridSize();
       if (savedGrid) {
         rebuildGrid(savedGrid.cols, savedGrid.rows);
+      } else {
+        rebuildGrid(COLS, ROWS);
       }
 
       document.getElementById('btn-print').addEventListener('click', function() { window.print(); });
